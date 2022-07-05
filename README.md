@@ -10,7 +10,7 @@ Create a [YouTube Music](https://music.youtube.com) playlist from a [Spotify](ht
 3. Add those credentials to this project
     * Add your *Client ID* and *Client Secret* to `secrets.example.yaml`
     * Rename that file as `secrets.yaml`
-4. [Create a `headers_auth.json` file](https://ytmusicapi.readthedocs.io/en/latest/usage.html) to enable creating playlists on YouTube Music
+4. [Create a `headers_auth.json` file](https://ytmusicapi.readthedocs.io/en/latest/setup.html) to enable creating playlists on YouTube Music
 5. Get the id of the Spotify playlist
     * Example: `https://open.spotify.com/playlist/32O0SSXDNWDrMievPkV0Im`
     * id = `32O0SSXDNWDrMievPkV0Im`
