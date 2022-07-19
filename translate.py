@@ -31,11 +31,13 @@ def CreatYTMusicConnection():
 
 
 def NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist):
-    playlist = ytmusic.create_playlist(spPlaylist['name'], spPlaylist['description'])
+    playlist = ytmusic.create_playlist(
+        spPlaylist['name'], spPlaylist['description'])
     return(playlist)
 
 
 def PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic):
+    playlistItems = []
     for item in spPlaylist['tracks']['items']:
         track = item['track']
         title = track['name']
@@ -43,17 +45,19 @@ def PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic):
         trackString = '{} - {}'.format(title, artist)
         idToAdd = GetYTMusicIdFromTitleArtist(title, artist, ytmusic)
         if idToAdd:
-            ytmusic.add_playlist_items(ytPlaylist, [idToAdd])
-            print('Added {}'.format(trackString))
-        else:
-            print('Could not find {}'.format(trackString))
+            playlistItems.append(idToAdd)
+        print('|{: >7}|{: >7}| {}'.format('Added' if idToAdd else '',
+              '' if idToAdd else 'Failed', trackString))
+    if len(playlistItems) != 0:
+        ytmusic.add_playlist_items(ytPlaylist, playlistItems)
 
 
 if __name__ == "__main__":
     ytmusic = CreatYTMusicConnection()
     spotify = CreateSpotifyConnection('secrets.yaml')
 
-    spotifyId = sys.argv[1]
+    # spotifyId = sys.argv[1]
+    spotifyId = '37i9dQZF1DX6mvEU1S6INL'
     spPlaylist = spotify.playlist(spotifyId)
     ytPlaylist = NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist)
     PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic)
