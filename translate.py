@@ -56,8 +56,7 @@ if __name__ == "__main__":
     ytmusic = CreatYTMusicConnection()
     spotify = CreateSpotifyConnection('secrets.yaml')
 
-    # spotifyId = sys.argv[1]
-    spotifyId = '37i9dQZF1DX6mvEU1S6INL'
+    spotifyId = sys.argv[1]
     spPlaylist = spotify.playlist(spotifyId)
     ytPlaylist = NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist)
     PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic)
