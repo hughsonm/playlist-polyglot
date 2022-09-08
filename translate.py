@@ -30,7 +30,7 @@ def CreatYTMusicConnection():
     return(ytmusic)
 
 
-def NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist):
+def NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist, ytmusic):
     playlist = ytmusic.create_playlist(
         spPlaylist['name'], spPlaylist['description'])
     return(playlist)
@@ -53,10 +53,12 @@ def PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic):
 
 
 if __name__ == "__main__":
-    ytmusic = CreatYTMusicConnection()
-    spotify = CreateSpotifyConnection('secrets.yaml')
+    ytConnection = CreatYTMusicConnection()
+    spConnection = CreateSpotifyConnection('secrets.yaml')
 
     spotifyId = sys.argv[1]
-    spPlaylist = spotify.playlist(spotifyId)
-    ytPlaylist = NewYTMusicPlaylistFromSpotifyPlaylist(spPlaylist)
-    PopulateYTMusicPlaylistFromSpotifyPlaylist(ytPlaylist, spPlaylist, ytmusic)
+    spPlaylist = spConnection.playlist(spotifyId)
+    ytPlaylist = NewYTMusicPlaylistFromSpotifyPlaylist(
+        spPlaylist, ytConnection)
+    PopulateYTMusicPlaylistFromSpotifyPlaylist(
+        ytPlaylist, spPlaylist, ytConnection)
